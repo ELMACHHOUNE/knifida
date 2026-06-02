@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+  <g fill="#5a3a1e">
+    <!-- body -->
+    <ellipse cx="90" cy="85" rx="55" ry="30"/>
+    <!-- humps -->
+    <ellipse cx="75" cy="60" rx="18" ry="22"/>
+    <ellipse cx="110" cy="58" rx="16" ry="20"/>
+    <!-- neck -->
+    <path d="M40,80 Q20,40 30,20 Q35,10 45,15 Q55,25 50,50 Q48,65 40,80" />
+    <!-- head -->
+    <ellipse cx="35" cy="15" rx="12" ry="8"/>
+    <!-- ears -->
+    <ellipse cx="40" cy="7" rx="3" ry="5"/>
+    <!-- legs -->
+    <rect x="60" y="110" width="8" height="35" rx="3"/>
+    <rect x="75" y="110" width="8" height="35" rx="3"/>
+    <rect x="95" y="110" width="8" height="35" rx="3"/>
+    <rect x="110" y="110" width="8" height="35" rx="3"/>
+    <!-- tail -->
+    <path d="M140,80 Q155,75 160,85 Q155,90 145,85" fill="none" stroke="#5a3a1e" stroke-width="3"/>
+  </g>
+  <circle cx="32" cy="12" r="3" fill="#1a0a2e"/>
+</svg>

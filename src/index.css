@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Inter:wght@100..900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-knifida-primary: #AD8B58;
+  --color-knifida-secondary: #DEC087;
+  --color-knifida-dark: #000000;
+  --color-knifida-light: #FFFFFF;
+  --color-knifida-accent: #e85d04;
+  --color-knifida-glow: #ffd60a;
+  --font-display: "Antonio", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+html.lenis,
+html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  width: 100dvw;
+}
+
+::selection { background: #AD8B58; color: #fff; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #AD8B58; border-radius: 2px; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-marquee { animation: marquee 20s linear infinite; }
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 30s linear infinite; }
+
+.border-hsla {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.special-font b {
+  font-family: "Antonio", sans-serif;
+  font-feature-settings: "ss01" on;
+}
+
+.animated-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 4.5rem;
+  text-transform: uppercase;
+  line-height: 0.8;
+  color: #fff;
+}
+
+@media (min-width: 640px) {
+  .animated-title {
+    padding-left: 8rem;
+    padding-right: 8rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .animated-title {
+    font-size: 6rem;
+  }
+}
+
+.animated-word {
+  opacity: 0;
+  transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
+  transform-origin: 50% 50% -150px !important;
+  will-change: opacity, transform;
+}
+
+.bento-title {
+  text-transform: uppercase;
+  font-weight: 900;
+  font-family: var(--font-display);
+}
+
+@media (min-width: 768px) {
+  .bento-title {
+    font-size: 3.75rem;
+  }
+}
