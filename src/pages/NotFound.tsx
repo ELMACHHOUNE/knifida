@@ -1,24 +1,20 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CompassIcon } from "@animateicons/react/lucide";
 import AutoAnimatedIcon from "../components/AutoAnimatedIcon";
 import Loader from "../components/Loader";
 
+const particles = Array.from({ length: 20 }, () => ({
+  left: `${Math.random() * 100}%`,
+  top: `${Math.random() * 100}%`,
+  delay: `${Math.random() * 2}s`,
+  duration: 3 + Math.random() * 4,
+  opacity: 0.2 + Math.random() * 0.6,
+}));
+
 export default function NotFound() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-  const particles = useMemo(
-    () =>
-      Array.from({ length: 20 }, () => ({
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        delay: `${Math.random() * 2}s`,
-        duration: 3 + Math.random() * 4,
-        opacity: 0.2 + Math.random() * 0.6,
-      })),
-    [],
-  );
 
   if (loading) return <Loader onFinish={() => setLoading(false)} />;
 

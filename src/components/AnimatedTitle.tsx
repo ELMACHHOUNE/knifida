@@ -8,37 +8,46 @@ gsap.registerPlugin(ScrollTrigger);
 export default function AnimatedTitle({
   title,
   containerClass,
+  animateOnScroll = true,
 }: {
   title: string;
   containerClass?: string;
+  animateOnScroll?: boolean;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const titleAnimation = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "100 bottom",
-          end: "center bottom",
-          toggleActions: "play none none reverse",
-        },
-      });
+      if (animateOnScroll) {
+        const titleAnimation = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "100 bottom",
+            end: "center bottom",
+            toggleActions: "play none none reverse",
+          },
+        });
 
-      titleAnimation.to(
-        ".animated-word",
-        {
+        titleAnimation.to(
+          ".animated-word",
+          {
+            opacity: 1,
+            transform: "translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg)",
+            ease: "power2.inOut",
+            stagger: 0.02,
+          },
+          0
+        );
+      } else {
+        gsap.set(".animated-word", {
           opacity: 1,
           transform: "translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg)",
-          ease: "power2.inOut",
-          stagger: 0.02,
-        },
-        0
-      );
+        });
+      }
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [animateOnScroll]);
 
   return (
     <div ref={containerRef} className={clsx("animated-title", containerClass)}>

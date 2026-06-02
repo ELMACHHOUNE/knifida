@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -6,6 +6,12 @@ import { ZapIcon, ShieldCheckIcon, StarIcon, BoltIcon, ChevronRightIcon } from "
 import AutoAnimatedIcon from "./AutoAnimatedIcon";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const stars = Array.from({ length: 30 }, () => ({
+  left: `${Math.random() * 100}%`,
+  top: `${Math.random() * 60}%`,
+  opacity: 0.2 + Math.random() * 0.8,
+}));
 
 export default function Gameplay() {
   const section = useRef<HTMLElement>(null);
@@ -21,16 +27,6 @@ export default function Gameplay() {
   const scoreRef = useRef<HTMLDivElement>(null);
 
   const [transformStyle, setTransformStyle] = useState("");
-
-  const stars = useMemo(
-    () =>
-      Array.from({ length: 30 }, () => ({
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 60}%`,
-        opacity: 0.2 + Math.random() * 0.8,
-      })),
-    [],
-  );
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!gameScreen.current) return;

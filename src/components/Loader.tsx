@@ -1,19 +1,15 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
+
+const particles = Array.from({ length: 15 }, () => ({
+  left: `${Math.random() * 100}%`,
+  top: `${Math.random() * 100}%`,
+  delay: `${Math.random() * 2}s`,
+  duration: 3 + Math.random() * 4,
+  opacity: 0.2 + Math.random() * 0.6,
+}));
 
 export default function Loader({ onFinish }: { onFinish: () => void }) {
   const [progress, setProgress] = useState(0);
-
-  const particles = useMemo(
-    () =>
-      Array.from({ length: 15 }, () => ({
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        delay: `${Math.random() * 2}s`,
-        duration: 3 + Math.random() * 4,
-        opacity: 0.2 + Math.random() * 0.6,
-      })),
-    [],
-  );
 
   useEffect(() => {
     const duration = 2200;
