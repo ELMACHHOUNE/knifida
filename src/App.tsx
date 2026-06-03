@@ -12,6 +12,7 @@ import Storyboard from "./components/Storyboard";
 import VideoStory from "./components/VideoStory";
 import CTA from "./components/CTA";
 import Loader from "./components/Loader";
+import MusicPlayer from "./components/MusicPlayer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,6 +50,7 @@ export default function App() {
   return (
     <>
       {loading && <Loader onFinish={() => setLoading(false)} />}
+      <MusicPlayer />
       <main className="bg-black text-white overflow-x-hidden">
         <Hero />
         <About />
