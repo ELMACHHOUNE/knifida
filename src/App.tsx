@@ -7,6 +7,9 @@ import About from "./components/About";
 import Features from "./components/Features";
 import Gameplay from "./components/Gameplay";
 import Characters from "./components/Characters";
+import UIShowcase from "./components/UIShowcase";
+import Storyboard from "./components/Storyboard";
+import VideoStory from "./components/VideoStory";
 import CTA from "./components/CTA";
 import Loader from "./components/Loader";
 
@@ -52,6 +55,9 @@ export default function App() {
         <Features />
         <Gameplay />
         <Characters />
+        <UIShowcase />
+        <Storyboard />
+        <VideoStory />
         <CTA />
       </main>
     </>
