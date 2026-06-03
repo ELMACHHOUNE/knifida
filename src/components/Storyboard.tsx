@@ -8,12 +8,13 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Storyboard() {
   const section = useRef<HTMLElement>(null);
   const pin = useRef<HTMLDivElement>(null);
-  const frame = useRef<HTMLDivElement>(null);
-  const image = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const barTop = useRef<HTMLDivElement>(null);
-  const barBottom = useRef<HTMLDivElement>(null);
-  const sprockets = useRef<HTMLDivElement>(null);
+  const textSide = useRef<HTMLDivElement>(null);
+  const imageSide = useRef<HTMLDivElement>(null);
+  const imageWrapper = useRef<HTMLDivElement>(null);
+  const divider = useRef<HTMLDivElement>(null);
+  const chapterRef = useRef<HTMLParagraphElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -28,13 +29,16 @@ export default function Storyboard() {
       },
     });
 
-    tl.to(barTop.current, { scaleY: 1, ease: "power3.inOut" }, 0)
-      .to(barBottom.current, { scaleY: 1, ease: "power3.inOut" }, 0)
-      .to(frame.current, { clipPath: "inset(0%)", ease: "power3.inOut" }, 0.15)
-      .to(textRef.current, { y: 0, opacity: 1, ease: "power2.out" }, 0.4)
-      .to(sprockets.current, { opacity: 1, ease: "none" }, 0)
-      .to(frame.current, { scale: 1.05, ease: "none" }, 0)
-      .to(textRef.current, { y: -20, opacity: 0.4, ease: "none" }, 0);
+    tl.fromTo(textSide.current, { x: -80, opacity: 0 }, { x: 0, opacity: 1, ease: "power2.out" }, 0)
+      .fromTo(imageSide.current, { x: 80, opacity: 0 }, { x: 0, opacity: 1, ease: "power2.out" }, 0)
+      .fromTo(imageWrapper.current, { scale: 1.15 }, { scale: 1, ease: "power2.out" }, 0)
+      .fromTo(divider.current, { scaleX: 0 }, { scaleX: 1, ease: "power3.inOut" }, 0.1)
+      .fromTo(chapterRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, ease: "power2.out" }, 0.12)
+      .fromTo(headingRef.current, { y: 30, opacity: 0 }, { y: 0, opacity: 1, ease: "power2.out" }, 0.18)
+      .fromTo(descRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, ease: "power2.out" }, 0.25)
+      .to(textSide.current, { x: 15, opacity: 0.4, ease: "none" }, 0.5)
+      .to(imageSide.current, { y: -25, opacity: 0.6, ease: "none" }, 0.5)
+      .to(headingRef.current, { y: -10, ease: "none" }, 0.5);
 
     ScrollTrigger.refresh();
 
@@ -47,89 +51,61 @@ export default function Storyboard() {
         ref={pin}
         className="sticky top-0 h-screen w-full bg-black overflow-hidden"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#AD8B58/5_0%,_transparent_60%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#AD8B58/6_0%,_transparent_60%)] pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#DEC087]/10 to-transparent" />
 
-        <div
-          ref={barTop}
-          className="absolute top-0 left-0 right-0 z-20 bg-black origin-top scale-y-0"
-          style={{ height: "clamp(40px, 8vh, 80px)" }}
-        />
-        <div
-          ref={barBottom}
-          className="absolute bottom-0 left-0 right-0 z-20 bg-black origin-bottom scale-y-0"
-          style={{ height: "clamp(40px, 8vh, 80px)" }}
-        />
-
-        {/* Sprocket holes decoration */}
-        <div
-          ref={sprockets}
-          className="absolute inset-y-0 left-2 sm:left-4 md:left-8 z-10 flex flex-col justify-around py-8 sm:py-12 md:py-20 opacity-0"
-        >
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div
-              key={i}
-              className="w-1.5 h-2 md:w-3 md:h-4 rounded-sm border border-[#AD8B58]/20"
-            />
-          ))}
-        </div>
-        <div
-          className="absolute inset-y-0 right-2 sm:right-4 md:right-8 z-10 flex flex-col justify-around py-8 sm:py-12 md:py-20 opacity-0"
-          style={{ opacity: 0 }}
-        >
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div
-              key={i}
-              className="w-1.5 h-2 md:w-3 md:h-4 rounded-sm border border-[#AD8B58]/20"
-            />
-          ))}
-        </div>
-
-        {/* Vertical film edge lines */}
-        <div className="absolute top-0 bottom-0 left-3 sm:left-6 md:left-12 w-px bg-gradient-to-b from-transparent via-[#DEC087]/10 to-transparent z-10 hidden sm:block" />
-        <div className="absolute top-0 bottom-0 right-3 sm:right-6 md:right-12 w-px bg-gradient-to-b from-transparent via-[#DEC087]/10 to-transparent z-10 hidden sm:block" />
-
-        <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-6">
-          {/* Image frame */}
+        <div className="relative z-10 w-full h-full flex flex-col md:flex-row items-center justify-center px-6 md:px-12 lg:px-20">
+          {/* Left: Text */}
           <div
-            ref={frame}
-            className="relative w-full max-w-sm mx-auto aspect-[226/354] rounded-lg overflow-hidden shadow-2xl shadow-[#AD8B58]/10"
-            style={{ clipPath: "inset(10%)" }}
+            ref={textSide}
+            className="w-full md:w-1/2 flex flex-col justify-center md:pr-8 lg:pr-16"
           >
-            <div ref={image} className="w-full h-full">
-              <img
-                src="/knifida-game.jpeg"
-                alt="Game storyboard"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            {/* Frame border decoration */}
-            <div className="absolute inset-0 border border-[#DEC087]/10 rounded-lg pointer-events-none" />
-            <div className="absolute top-2 left-2 right-2 h-px bg-gradient-to-r from-transparent via-[#DEC087]/20 to-transparent" />
-            <div className="absolute bottom-2 left-2 right-2 h-px bg-gradient-to-r from-transparent via-[#DEC087]/20 to-transparent" />
-          </div>
-
-          {/* Caption */}
-          <div
-            ref={textRef}
-            className="mt-8 text-center translate-y-8 opacity-0"
-          >
-            <p className="font-body text-xs md:text-sm text-gray-500 tracking-[0.25em] uppercase mb-2">
+            <p
+              ref={chapterRef}
+              className="font-body text-[10px] md:text-sm text-gray-500 tracking-[0.3em] uppercase mb-2 md:mb-3"
+            >
               Chapter I
             </p>
-            <h3 className="font-display text-xl md:text-2xl font-bold text-[#DEC087] tracking-[0.05em]">
-              The Desert Awakens
-            </h3>
-            <p className="mt-3 font-body text-sm md:text-base text-gray-400 max-w-md mx-auto leading-relaxed">
+            <h2
+              ref={headingRef}
+              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#DEC087] leading-[0.9] tracking-tight"
+            >
+              The Desert<br />Awakens
+            </h2>
+            <div
+              ref={divider}
+              className="w-10 md:w-14 h-[2px] bg-gradient-to-r from-[#DEC087]/40 to-transparent my-4 md:my-6 origin-left"
+            />
+            <p
+              ref={descRef}
+              className="font-body text-sm md:text-base text-gray-400 max-w-md leading-relaxed"
+            >
               A lone camel races across endless dunes. Ancient ruins rise from
               the sand. Somewhere ahead lies an oasis — but the desert guards
               its secrets well.
             </p>
           </div>
-        </div>
 
-        {/* Bottom gradient */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/50 to-transparent pointer-events-none z-10" />
+          {/* Right: Image */}
+          <div
+            ref={imageSide}
+            className="w-full md:w-1/2 flex items-center justify-center mt-8 md:mt-0"
+          >
+            <div
+              ref={imageWrapper}
+              className="relative w-full max-w-[200px] sm:max-w-[240px] md:max-w-sm aspect-[226/354] rounded-2xl overflow-hidden shadow-2xl shadow-[#AD8B58]/15 border border-white/[0.06]"
+            >
+              <img
+                src="/knifida-game.jpeg"
+                alt="Game storyboard"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 border border-[#DEC087]/10 rounded-2xl pointer-events-none" />
+              <div className="absolute top-2 left-2 right-2 h-px bg-gradient-to-r from-transparent via-[#DEC087]/20 to-transparent" />
+              <div className="absolute bottom-2 left-2 right-2 h-px bg-gradient-to-r from-transparent via-[#DEC087]/20 to-transparent" />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
