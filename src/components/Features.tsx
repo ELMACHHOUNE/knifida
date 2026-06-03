@@ -94,8 +94,8 @@ export default function Features() {
             <BentoTilt
               key={i}
               className={`bento-tilt_1 row-span-1 ${
-                i === 1 ? "ms-32 md:col-span-1 md:ms-0" : ""
-              } ${i === 2 ? "me-14 md:col-span-1 md:me-0" : ""}`}
+                i === 1 ? "md:col-span-1" : ""
+              } ${i === 2 ? "md:col-span-1" : ""}`}
             >
               <div className="relative size-full bg-gradient-to-br from-[#0d0804] to-black flex flex-col items-center justify-center p-8 text-center">
                 <AutoAnimatedIcon icon={Icon} size={40} color="#DEC087" duration={0.8} />

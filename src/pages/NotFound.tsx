@@ -49,7 +49,7 @@ export default function NotFound() {
         />
 
         {/* 404 number */}
-        <h1 className="font-display text-[10rem] md:text-[14rem] font-black leading-none text-[#AD8B58]/30 select-none">
+        <h1 className="font-display text-[5rem] sm:text-[8rem] md:text-[14rem] font-black leading-none text-[#AD8B58]/30 select-none">
           404
         </h1>
 

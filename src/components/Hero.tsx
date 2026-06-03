@@ -108,7 +108,7 @@ export default function Hero() {
             ref={logoRef}
             src="/logo.svg"
             alt="KNIFIDA"
-            className="w-[260px] md:w-[480px] lg:w-245 h-auto drop-shadow-2xl mb-6"
+            className="w-[180px] sm:w-[260px] md:w-[480px] lg:w-245 h-auto drop-shadow-2xl mb-6"
           />
 
           <AnimatedTitle

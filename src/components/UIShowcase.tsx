@@ -107,22 +107,22 @@ export default function UIShowcase() {
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-6">
           <h2
             ref={heading}
-            className="text-4xl md:text-6xl font-black text-white mb-12 md:mb-16 font-display tracking-tight text-center"
+            className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-6 sm:mb-8 md:mb-16 font-display tracking-tight text-center"
           >
             Game <span className="text-[#DEC087]">Interface</span>
           </h2>
 
-          <div className="relative w-full max-w-5xl mx-auto h-[60vh] md:h-[65vh]">
+          <div className="relative w-full max-w-5xl mx-auto h-[55vh] sm:h-[60vh] md:h-[65vh]">
             {layers.map(({ refKey, icons }) => (
               <div
                 key={refKey}
                 ref={refMap[refKey]}
-                className="absolute inset-0 flex flex-wrap items-center justify-center gap-3 md:gap-4 will-change-transform"
+                className="absolute inset-0 flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4 will-change-transform px-2 sm:px-0"
               >
                 {icons.map(({ src, name }) => (
                   <div
                     key={name}
-                    className="group relative w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center p-3 md:p-4 backdrop-blur-sm transition-all duration-300 hover:bg-white/[0.06] hover:border-[#DEC087]/30 hover:shadow-lg hover:shadow-[#AD8B58]/10 cursor-default"
+                    className="group relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-2xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center p-2 sm:p-3 md:p-4 backdrop-blur-sm transition-all duration-300 hover:bg-white/[0.06] hover:border-[#DEC087]/30 hover:shadow-lg hover:shadow-[#AD8B58]/10 cursor-default"
                   >
                     <img
                       src={src}

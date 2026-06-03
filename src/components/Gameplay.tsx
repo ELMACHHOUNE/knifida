@@ -168,7 +168,7 @@ export default function Gameplay() {
             <div ref={ground2} className="absolute bottom-0 left-0 w-[200%] h-1.5 bg-gradient-to-r from-transparent via-[#DEC087]/15 to-transparent blur-xs will-change-transform" />
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-6 text-xs text-gray-400 font-body">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3 md:gap-6 text-xs text-gray-400 font-body">
             {[
               { icon: ZapIcon, label: "Speed" },
               { icon: ShieldCheckIcon, label: "Shield" },

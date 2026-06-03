@@ -63,30 +63,30 @@ export default function Storyboard() {
         {/* Sprocket holes decoration */}
         <div
           ref={sprockets}
-          className="absolute inset-y-0 left-4 md:left-8 z-10 flex flex-col justify-around py-20 opacity-0"
+          className="absolute inset-y-0 left-2 sm:left-4 md:left-8 z-10 flex flex-col justify-around py-8 sm:py-12 md:py-20 opacity-0"
         >
-          {Array.from({ length: 12 }).map((_, i) => (
+          {Array.from({ length: 8 }).map((_, i) => (
             <div
               key={i}
-              className="w-2 h-3 md:w-3 md:h-4 rounded-sm border border-[#AD8B58]/20"
+              className="w-1.5 h-2 md:w-3 md:h-4 rounded-sm border border-[#AD8B58]/20"
             />
           ))}
         </div>
         <div
-          className="absolute inset-y-0 right-4 md:right-8 z-10 flex flex-col justify-around py-20 opacity-0 animate-[fadeIn_1s_ease_0.5s_forwards]"
+          className="absolute inset-y-0 right-2 sm:right-4 md:right-8 z-10 flex flex-col justify-around py-8 sm:py-12 md:py-20 opacity-0"
           style={{ opacity: 0 }}
         >
-          {Array.from({ length: 12 }).map((_, i) => (
+          {Array.from({ length: 8 }).map((_, i) => (
             <div
               key={i}
-              className="w-2 h-3 md:w-3 md:h-4 rounded-sm border border-[#AD8B58]/20"
+              className="w-1.5 h-2 md:w-3 md:h-4 rounded-sm border border-[#AD8B58]/20"
             />
           ))}
         </div>
 
         {/* Vertical film edge lines */}
-        <div className="absolute top-0 bottom-0 left-6 md:left-12 w-px bg-gradient-to-b from-transparent via-[#DEC087]/10 to-transparent z-10" />
-        <div className="absolute top-0 bottom-0 right-6 md:right-12 w-px bg-gradient-to-b from-transparent via-[#DEC087]/10 to-transparent z-10" />
+        <div className="absolute top-0 bottom-0 left-3 sm:left-6 md:left-12 w-px bg-gradient-to-b from-transparent via-[#DEC087]/10 to-transparent z-10 hidden sm:block" />
+        <div className="absolute top-0 bottom-0 right-3 sm:right-6 md:right-12 w-px bg-gradient-to-b from-transparent via-[#DEC087]/10 to-transparent z-10 hidden sm:block" />
 
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-6">
           {/* Image frame */}

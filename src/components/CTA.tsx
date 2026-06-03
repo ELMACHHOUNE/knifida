@@ -59,7 +59,7 @@ export default function CTA() {
           <img
             src="/logo.svg"
             alt="KNIFIDA"
-            className="w-[660px] md:w-[680px] h-auto mx-auto mb-6 opacity-60 drop-shadow-2xl"
+            className="w-[200px] sm:w-[260px] md:w-[480px] lg:w-[680px] h-auto mx-auto mb-6 opacity-60 drop-shadow-2xl"
           />
 
           <AnimatedTitle
