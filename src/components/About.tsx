@@ -3,19 +3,15 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedTitle from "./AnimatedTitle";
-import {
-  CompassIcon,
-  MapPinnedIcon,
-  ZapIcon,
-} from "@animateicons/react/lucide";
+import { ZapIcon, SparklesIcon, StarIcon } from "@animateicons/react/lucide";
 import AutoAnimatedIcon from "./AutoAnimatedIcon";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { Icon: CompassIcon, value: "∞", label: "Endless" },
-  { Icon: MapPinnedIcon, value: "3", label: "Worlds" },
-  { Icon: ZapIcon, value: "5", label: "Power-ups" },
+  { Icon: ZapIcon, value: "Run", label: "Action" },
+  { Icon: SparklesIcon, value: "Collect", label: "Rewards" },
+  { Icon: StarIcon, value: "Achieve", label: "Achievement" },
 ];
 
 export default function About() {
@@ -77,13 +73,17 @@ export default function About() {
             Welcome to KNIFIDA
           </p>
           <AnimatedTitle
-            title="Disc<b>o</b>ver the endless<br />desert adv<b>e</b>nture"
+            title="Disc<b>o</b>ver the Journey<br />of Knifi<b>d</b>a C120"
             containerClass="!text-black text-center"
           />
           <p className="max-w-lg mx-auto text-gray-400 font-body text-base md:text-lg mt-6">
-            An endless runner through the golden deserts of Morocco. Guide your
-            camel across shifting dunes, dodge ancient ruins, collect coins, and
-            survive the scorching sun.
+            Based on the film adaptation Rijal Allaz by HAMMOU Khalid and Yassir
+            Ait Daoud, the film follows the daily preparation of racing camels
+            leading up to an Allaz (camel race), showcasing their training,
+            feeding, grooming, and care. It culminates in the race, where the
+            camel Knifida C120 emerges as the winner, highlighting the
+            excitement, dedication, and cultural significance of traditional
+            camel racing.
           </p>
         </div>
 
@@ -93,11 +93,7 @@ export default function About() {
           className="relative w-full max-w-5xl mx-auto h-[50vh] md:h-[70vh] rounded-xl overflow-hidden"
           style={{ clipPath: "inset(10% 20% 15% 20% round 1.5rem)" }}
         >
-          <img
-            src="/icon.png"
-            alt="Knifida gameplay"
-            className="size-full "
-          />
+          <img src="/icon.png" alt="Knifida gameplay" className="size-full " />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
         </div>
 
@@ -115,7 +111,12 @@ export default function About() {
               className="text-center group"
             >
               <div className="w-14 h-14 md:w-16 md:h-16 mx-auto mb-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center group-hover:border-[#DEC087]/30 group-hover:bg-white/[0.06] transition-all duration-500">
-                <AutoAnimatedIcon icon={Icon} size={24} color="#DEC087" duration={0.6} />
+                <AutoAnimatedIcon
+                  icon={Icon}
+                  size={24}
+                  color="#DEC087"
+                  duration={0.6}
+                />
               </div>
               <div className="text-3xl md:text-4xl font-black text-[#DEC087] font-display">
                 {value}

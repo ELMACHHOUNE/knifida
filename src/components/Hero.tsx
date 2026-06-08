@@ -112,7 +112,7 @@ export default function Hero() {
           />
 
           <AnimatedTitle
-            title="Run the desert.<br />Survive the d<b>u</b>nes."
+            title="The Spirit of<br />Allaz Li<b>v</b>es On."
             containerClass="!text-[clamp(1.5rem,5vw,3.5rem)] !text-[#DEC087] !font-light !normal-case !tracking-[0.15em] !gap-0 !px-0 !leading-tight"
             animateOnScroll={false}
           />

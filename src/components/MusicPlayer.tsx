@@ -20,7 +20,10 @@ export default function MusicPlayer() {
     const start = () => {
       if (!audio.paused && !audio.muted) return;
       audio.muted = false;
-      audio.play().then(() => setPlaying(true)).catch(() => {});
+      audio
+        .play()
+        .then(() => setPlaying(true))
+        .catch(() => {});
       lenis.off("scroll", start);
       document.removeEventListener("click", start);
       document.removeEventListener("touchstart", start);
@@ -66,13 +69,16 @@ export default function MusicPlayer() {
       audio.pause();
     } else {
       audio.muted = false;
-      audio.play().then(() => setPlaying(true)).catch(() => {});
+      audio
+        .play()
+        .then(() => setPlaying(true))
+        .catch(() => {});
     }
   };
 
   return (
     <>
-      <audio ref={audioRef} src="/sound.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="/sound.wav" loop preload="auto" />
 
       <div className="fixed bottom-4 left-4 z-[9998] group">
         <button
@@ -90,7 +96,11 @@ export default function MusicPlayer() {
                 fill="none"
               />
               <text className="fill-[#DEC087]/40 text-[8px] font-display tracking-[0.3em] uppercase">
-                <textPath href="#music-text-path" startOffset="50%" textAnchor="middle">
+                <textPath
+                  href="#music-text-path"
+                  startOffset="50%"
+                  textAnchor="middle"
+                >
                   knifida • knifida • knifida • knifida • knifida • knifida •
                 </textPath>
               </text>
@@ -99,12 +109,20 @@ export default function MusicPlayer() {
 
           <span className="relative z-10 text-white/60 group-hover:text-white transition-colors duration-300">
             {playing ? (
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 md:w-6 md:h-6">
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-5 h-5 md:w-6 md:h-6"
+              >
                 <rect x="6" y="4" width="4" height="16" rx="1" />
                 <rect x="14" y="4" width="4" height="16" rx="1" />
               </svg>
             ) : (
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 md:w-6 md:h-6">
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-5 h-5 md:w-6 md:h-6"
+              >
                 <path d="M8 5v14l11-7z" />
               </svg>
             )}
