@@ -1,21 +1,25 @@
 # KNIFIDA
 
+<p align="center">
+	<img src="public/logo.png" alt="Knifida logo" width="520" />
+</p>
+
 > Run the desert. Survive the dunes.
 
 A cinematic landing page for the mobile endless runner game **KNIFIDA** — built with React, GSAP, ScrollTrigger, Lenis, and Tailwind CSS v4.
 
 ## Tech Stack
 
-| Layer | Tool |
-|-------|------|
-| Framework | React 19 + TypeScript |
-| Build | Vite 8 |
-| Styling | Tailwind CSS v4 |
-| Animations | GSAP + ScrollTrigger |
-| Smooth Scroll | Lenis |
-| Icons | @animateicons/react (Lucide) |
-| Routing | react-router-dom |
-| Lint | ESLint with react-compiler rules |
+| Layer         | Tool                             |
+| ------------- | -------------------------------- |
+| Framework     | React 19 + TypeScript            |
+| Build         | Vite 8                           |
+| Styling       | Tailwind CSS v4                  |
+| Animations    | GSAP + ScrollTrigger             |
+| Smooth Scroll | Lenis                            |
+| Icons         | @animateicons/react (Lucide)     |
+| Routing       | react-router-dom                 |
+| Lint          | ESLint with react-compiler rules |
 
 ## Features
 
@@ -108,12 +112,12 @@ public/
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start Vite dev server |
-| `npm run build` | Type-check + build for production |
-| `npm run lint` | Run ESLint on all source files |
-| `npm run preview` | Preview the production build |
+| Command           | Description                       |
+| ----------------- | --------------------------------- |
+| `npm run dev`     | Start Vite dev server             |
+| `npm run build`   | Type-check + build for production |
+| `npm run lint`    | Run ESLint on all source files    |
+| `npm run preview` | Preview the production build      |
 
 ## License
 
