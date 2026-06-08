@@ -16,6 +16,7 @@ const teamMembers = [
   {
     name: "Ayoub KATANI",
     role: "Game Designer",
+    image: "/profiles/ayoub-katani.png",
     accent: "#B89467",
   },
   {
@@ -26,6 +27,7 @@ const teamMembers = [
   {
     name: "Anas DAGHMA",
     role: "Game Programmer",
+    image: "/profiles/anas-daghma.png",
     accent: "#D7A96B",
   },
   {
@@ -42,12 +44,36 @@ const teamMembers = [
   {
     name: "Fatima Ezzahra OUFFATA",
     role: "Music Composer",
+    image: "/profiles/fatima-ezzahra-ouffata.png",
     accent: "#E1B86E",
   },
   {
     name: "Nouhaila MAADI",
     role: "Sound Designer",
+    image: "/profiles/nouhaila-maadi.png",
     accent: "#D39A55",
+  },
+];
+
+const institutionalItems = [
+  {
+    title: "Ibn Tofail University",
+    subtitle: "Academic partner",
+    image: "/profiles/university.png",
+    type: "logo" as const,
+  },
+  {
+    title: "Houria KELKOUL",
+    subtitle:
+      "Vice Dean | Head of the Center of Excellence – Ibn Tofail University",
+    image: "/profiles/houria-kelkoul.jpg",
+    type: "person" as const,
+  },
+  {
+    title: "Center of Excellence",
+    subtitle: "Research and innovation hub",
+    image: "/profiles/centre.png",
+    type: "logo" as const,
   },
 ];
 
@@ -152,10 +178,60 @@ function TeamCard({
   );
 }
 
+function InstitutionalCard({
+  title,
+  subtitle,
+  image,
+  type,
+}: {
+  title: string;
+  subtitle: string;
+  image: string;
+  type: "logo" | "person";
+}) {
+  return (
+    <article className="group overflow-hidden rounded-3xl border border-black/8 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] transition-transform duration-300 hover:-translate-y-1">
+      {type === "logo" ? (
+        <div className="flex min-h-60 items-center justify-center bg-white p-8 md:p-10">
+          <img
+            src={image}
+            alt={title}
+            className="h-full max-h-37.5 w-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+          />
+        </div>
+      ) : (
+        <div className="bg-[linear-gradient(180deg,#f7f2e9_0%,#ffffff_55%,#f4efe6_100%)] p-5 md:p-6">
+          <div className="overflow-hidden rounded-3xl bg-white shadow-[0_18px_45px_rgba(0,0,0,0.08)]">
+            <img
+              src={image}
+              alt={title}
+              className="aspect-4/5 w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+            />
+          </div>
+        </div>
+      )}
+
+      <div className="border-t border-black/8 px-5 py-5 md:px-6 md:py-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-knifida-primary">
+          Institutional Support
+        </p>
+        <h3 className="mt-2 text-xl md:text-2xl font-black tracking-tight text-black font-display">
+          {title}
+        </h3>
+        <p className="mt-2 text-sm md:text-base leading-relaxed text-black/65 font-body">
+          {subtitle}
+        </p>
+      </div>
+    </article>
+  );
+}
+
 export default function TeamSection() {
   const section = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
+  const institutionalHeadingRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const institutionalRefs = useRef<(HTMLElement | null)[]>([]);
 
   useGSAP(
     () => {
@@ -187,6 +263,46 @@ export default function TeamSection() {
             opacity: 1,
             scale: 1,
             duration: 0.9,
+            delay: index * 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 82%",
+              end: "top 55%",
+              toggleActions: "play none none reverse",
+            },
+          },
+        );
+      });
+
+      gsap.fromTo(
+        institutionalHeadingRef.current,
+        { y: 24, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: institutionalHeadingRef.current,
+            start: "top 82%",
+            end: "top 55%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+
+      institutionalRefs.current.forEach((card, index) => {
+        if (!card) return;
+
+        gsap.fromTo(
+          card,
+          { y: 36, opacity: 0, scale: 0.97 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.85,
             delay: index * 0.12,
             ease: "power3.out",
             scrollTrigger: {
@@ -241,6 +357,47 @@ export default function TeamSection() {
               }}
             />
           ))}
+        </div>
+
+        <div className="mt-20 md:mt-24">
+          <div
+            ref={institutionalHeadingRef}
+            className="text-center mb-10 md:mb-12"
+          >
+            <p className="font-body text-sm uppercase tracking-[0.28em] text-gray-500 mb-4">
+              Institutional Partners
+            </p>
+            <AnimatedTitle
+              title="University <br /> and Centre"
+              containerClass="text-center"
+            />
+            <p className="max-w-2xl mx-auto mt-5 text-sm md:text-base text-gray-400 font-body leading-relaxed">
+              The academic and institutional support behind the project,
+              alongside the leadership of the Center of Excellence at Ibn Tofail
+              University.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6 max-w-7xl mx-auto">
+            {institutionalItems.map(
+              ({ title, subtitle, image, type }, index) => (
+                <div
+                  key={title}
+                  ref={(node) => {
+                    institutionalRefs.current[index] = node;
+                  }}
+                  className={index === 2 ? "md:col-span-2 xl:col-span-1" : ""}
+                >
+                  <InstitutionalCard
+                    title={title}
+                    subtitle={subtitle}
+                    image={image}
+                    type={type}
+                  />
+                </div>
+              ),
+            )}
+          </div>
         </div>
       </div>
     </section>
