@@ -8,44 +8,44 @@ gsap.registerPlugin(ScrollTrigger);
 
 const teamMembers = [
   {
-    name: "Salma Mahdar",
+    name: "Salma MAHDAR",
     role: "Game Designer",
     image: "/profiles/mahdar-salma.png",
     accent: "#DEC087",
   },
   {
-    name: "Ayoub Katani",
+    name: "Ayoub KATANI",
     role: "Game Designer",
     accent: "#B89467",
   },
   {
-    name: "Ayoub Moussaouy",
+    name: "Ayoub MOUSSAOUY",
     role: "3D Artist",
     accent: "#8F6B43",
   },
   {
-    name: "Anas Daghma",
-    role: "Programmer",
+    name: "Anas DAGHMA",
+    role: "Game Programmer",
     accent: "#D7A96B",
   },
   {
-    name: "Mohammed",
-    role: "Programmer",
+    name: "Mohammed Amine EL RHALLOUCH",
+    role: "Game Programmer",
     accent: "#C98E4F",
   },
   {
     name: "Mohamed EL MACHHOUNE",
-    role: "UI & Full-Stack Developer",
+    role: "UI designer & Full-Stack Web Developer",
     image: "/profiles/mohamed-elmachhoune.png",
     accent: "#AD8B58",
   },
   {
-    name: "Fatima Ezzahra",
+    name: "Fatima Ezzahra OUFFATA",
     role: "Music Composer",
     accent: "#E1B86E",
   },
   {
-    name: "Nouhaila Maadi",
+    name: "Nouhaila MAADI",
     role: "Sound Designer",
     accent: "#D39A55",
   },
