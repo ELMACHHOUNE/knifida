@@ -49,7 +49,7 @@ function BentoTilt({
 const chars = [
   {
     Icon: StarIcon,
-    name: "Camel",
+    name: "Knifida",
     desc: "Your loyal desert companion. Fast, sturdy, and endlessly running.",
     color: "#DEC087",
   },
@@ -98,7 +98,12 @@ export default function Characters() {
                   className="w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center flex-shrink-0"
                   style={{ background: `${color}15` }}
                 >
-                  <AutoAnimatedIcon icon={Icon} size={28} color={color} duration={0.6} />
+                  <AutoAnimatedIcon
+                    icon={Icon}
+                    size={28}
+                    color={color}
+                    duration={0.6}
+                  />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">

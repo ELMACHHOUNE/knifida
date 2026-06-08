@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Features from "./components/Features";
+import TeamSection from "./components/TeamSection";
 import Gameplay from "./components/Gameplay";
 import Characters from "./components/Characters";
 import UIShowcase from "./components/UIShowcase";
@@ -55,6 +56,7 @@ export default function App() {
         <Hero />
         <About />
         <Features />
+        <TeamSection />
         <Gameplay />
         <Characters />
         <UIShowcase />
