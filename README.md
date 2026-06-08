@@ -1,7 +1,7 @@
 # KNIFIDA
 
 <p align="center">
-	<img src="public/logo.png" alt="Knifida logo" width="520" />
+	<img src="public/knifida.webp" alt="Knifida logo" width="520" />
 </p>
 
 > Run the desert. Survive the dunes.
