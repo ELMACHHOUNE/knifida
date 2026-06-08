@@ -16,20 +16,56 @@ export default function MusicPlayer() {
     if (!audio) return;
 
     audio.volume = 0.4;
+    audio.muted = true;
 
-    const start = () => {
-      if (!audio.paused && !audio.muted) return;
-      audio.muted = false;
-      audio
-        .play()
-        .then(() => setPlaying(true))
-        .catch(() => {});
+    const removeListeners = () => {
       lenis.off("scroll", start);
+      window.removeEventListener("wheel", start);
+      window.removeEventListener("pointerdown", start);
+      window.removeEventListener("mousedown", start);
+      window.removeEventListener("keydown", start);
       document.removeEventListener("click", start);
       document.removeEventListener("touchstart", start);
     };
 
+    const start = async () => {
+      if (!audio.paused) {
+        audio.muted = false;
+        setPlaying(true);
+        removeListeners();
+        return;
+      }
+
+      audio.muted = false;
+      try {
+        await audio.play();
+        setPlaying(true);
+        removeListeners();
+      } catch {
+        audio.muted = true;
+        try {
+          await audio.play();
+          audio.muted = false;
+          setPlaying(true);
+          removeListeners();
+        } catch {
+          // Keep listeners attached so the next trusted interaction can retry.
+        }
+      }
+    };
+
+    audio
+      .play()
+      .then(() => {
+        setPlaying(true);
+      })
+      .catch(() => {});
+
     lenis.on("scroll", start);
+    window.addEventListener("wheel", start, { once: true, passive: true });
+    window.addEventListener("pointerdown", start, { once: true });
+    window.addEventListener("mousedown", start, { once: true });
+    window.addEventListener("keydown", start, { once: true });
     document.addEventListener("click", start, { once: true });
     document.addEventListener("touchstart", start, { once: true });
 
@@ -39,9 +75,7 @@ export default function MusicPlayer() {
     audio.addEventListener("pause", onPause);
 
     return () => {
-      lenis.off("scroll", start);
-      document.removeEventListener("click", start);
-      document.removeEventListener("touchstart", start);
+      removeListeners();
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
     };
@@ -80,10 +114,10 @@ export default function MusicPlayer() {
     <>
       <audio ref={audioRef} src="/sound.wav" loop preload="auto" />
 
-      <div className="fixed bottom-4 left-4 z-[9998] group">
+      <div className="fixed bottom-4 left-4 z-9998 group">
         <button
           onClick={toggle}
-          className="relative w-16 h-16 md:w-20 md:h-20 rounded-full bg-black/60 backdrop-blur-md border border-white/[0.08] flex items-center justify-center transition-all duration-500 hover:bg-black/80 hover:border-[#DEC087]/30 hover:shadow-lg hover:shadow-[#AD8B58]/20 cursor-pointer"
+          className="relative w-16 h-16 md:w-20 md:h-20 rounded-full bg-black/60 backdrop-blur-md border border-white/8 flex items-center justify-center transition-all duration-500 hover:bg-black/80 hover:border-knifida-secondary/30 hover:shadow-lg hover:shadow-knifida-primary/20 cursor-pointer"
         >
           <div
             ref={circleRef}
@@ -95,7 +129,7 @@ export default function MusicPlayer() {
                 d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"
                 fill="none"
               />
-              <text className="fill-[#DEC087]/40 text-[8px] font-display tracking-[0.3em] uppercase">
+              <text className="fill-knifida-secondary/40 text-[8px] font-display tracking-[0.3em] uppercase">
                 <textPath
                   href="#music-text-path"
                   startOffset="50%"
@@ -129,7 +163,7 @@ export default function MusicPlayer() {
           </span>
 
           {playing && (
-            <span className="absolute inset-0 rounded-full animate-ping bg-[#DEC087]/10 pointer-events-none" />
+            <span className="absolute inset-0 rounded-full animate-ping bg-knifida-secondary/10 pointer-events-none" />
           )}
         </button>
 
