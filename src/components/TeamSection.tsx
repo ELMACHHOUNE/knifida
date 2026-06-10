@@ -70,6 +70,12 @@ const institutionalItems = [
     type: "person" as const,
   },
   {
+    title: "Othmane EL BADLAOUI",
+    subtitle: "Professor of the Department – Ibn Tofail University",
+    image: "/profiles/othmane-el-badlaoui.png",
+    type: "person" as const,
+  },
+  {
     title: "Center of Excellence",
     subtitle: "Research and innovation hub",
     image: "/profiles/centre.png",
@@ -378,7 +384,7 @@ export default function TeamSection() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-6 max-w-7xl mx-auto">
             {institutionalItems.map(
               ({ title, subtitle, image, type }, index) => (
                 <div
