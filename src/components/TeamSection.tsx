@@ -22,6 +22,7 @@ const teamMembers = [
   {
     name: "Ayoub MOUSSAOUY",
     role: "3D Artist",
+    image: "/profiles/ayoub-moussaouy.png",
     accent: "#8F6B43",
   },
   {
@@ -33,6 +34,7 @@ const teamMembers = [
   {
     name: "Mohammed Amine EL RHALLOUCH",
     role: "Game Programmer",
+    image: "/profiles/mohammed-amine-el-rhallouch.png",
     accent: "#C98E4F",
   },
   {
