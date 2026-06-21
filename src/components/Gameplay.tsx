@@ -1,190 +1,150 @@
-import { useRef, useState } from "react";
+import { useState, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ZapIcon, ShieldCheckIcon, StarIcon, BoltIcon, ChevronRightIcon } from "@animateicons/react/lucide";
-import AutoAnimatedIcon from "./AutoAnimatedIcon";
+import { ChevronDownIcon } from "@animateicons/react/lucide";
+import AnimatedTitle from "./AnimatedTitle";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const stars = Array.from({ length: 30 }, () => ({
-  left: `${Math.random() * 100}%`,
-  top: `${Math.random() * 60}%`,
-  opacity: 0.2 + Math.random() * 0.8,
-}));
-
-const scores = ["12,450", "13,250", "14,100", "15,800"];
+const faqs = [
+  {
+    q: "What is Knifida?",
+    a: "Knifida is a mobile endless runner game where you control Knifida C120, a champion camel racing through the Moroccan desert. Dodge obstacles, collect time bonuses, and survive as long as possible.",
+  },
+  {
+    q: "Is the game free to play?",
+    a: "Knifida will be available as a free-to-play title on both Android and iOS platforms, with optional in-game purchases.",
+  },
+  {
+    q: "How do the controls work?",
+    a: "Swipe left or right to move between three lanes, swipe up to jump, and swipe down to slide. The controls are designed for one-handed mobile play.",
+  },
+  {
+    q: "What inspired the game?",
+    a: "Knifida is inspired by the Moroccan documentary 'Rijal Allaz (Men of Allaz)', which follows Lahmad and his team as they train camels for traditional Allaz racing.",
+  },
+  {
+    q: "When will the game be released?",
+    a: "The game is currently in development and coming soon. Follow us on our social channels for the latest updates on the release date.",
+  },
+  {
+    q: "What platforms will it be on?",
+    a: "Knifida will launch on both Android and iOS devices, with the first release targeting mobile platforms.",
+  },
+  {
+    q: "Can I contact the development team?",
+    a: "Absolutely! You can reach out to any of the team members through their LinkedIn profiles listed in the 'Behind the Game' section above.",
+  },
+  {
+    q: "Is there a story mode?",
+    a: "The game features a score-based endless runner experience. The story is woven into the desert world and the documentary that inspired it, which you can explore in the Storyboard section.",
+  },
+];
 
 export default function Gameplay() {
   const section = useRef<HTMLElement>(null);
-  const panel = useRef<HTMLDivElement>(null);
-  const gameScreen = useRef<HTMLDivElement>(null);
-  const camelRun = useRef<HTMLDivElement>(null);
-  const coin1 = useRef<HTMLDivElement>(null);
-  const coin2 = useRef<HTMLDivElement>(null);
-  const coin3 = useRef<HTMLDivElement>(null);
-  const popup1 = useRef<HTMLDivElement>(null);
-  const popup2 = useRef<HTMLDivElement>(null);
-  const popup3 = useRef<HTMLDivElement>(null);
-  const ground1 = useRef<HTMLDivElement>(null);
-  const ground2 = useRef<HTMLDivElement>(null);
-  const heading = useRef<HTMLHeadingElement>(null);
-  const scoreRef = useRef<HTMLDivElement>(null);
-  const scoreLabel = useRef<HTMLSpanElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const [transformStyle, setTransformStyle] = useState("");
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!gameScreen.current) return;
-    const { left, top, width, height } = gameScreen.current.getBoundingClientRect();
-    const relativeX = (e.clientX - left) / width;
-    const relativeY = (e.clientY - top) / height;
-    const tiltX = (relativeY - 0.5) * 3;
-    const tiltY = (relativeX - 0.5) * -3;
-    setTransformStyle(`perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`);
+  const toggle = (i: number) => {
+    setOpenIndex(openIndex === i ? null : i);
   };
 
-  const handleMouseLeave = () => setTransformStyle("");
-
-  useGSAP(() => {
-    gsap.to(ground1.current, {
-      xPercent: -50,
-      duration: 2.5,
-      ease: "none",
-      repeat: -1,
-    });
-
-    gsap.to(ground2.current, {
-      xPercent: -50,
-      duration: 3.5,
-      ease: "none",
-      repeat: -1,
-    });
-
-    const proxy = { collected: 0 };
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section.current,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1.2,
-        pin: panel.current,
-        pinSpacing: true,
-      },
-    });
-
-    tl.to(camelRun.current, { x: 260, ease: "none" }, 0)
-      .to(heading.current, { y: -30, opacity: 0.3, ease: "none" }, 0)
-      .to(scoreRef.current, { scale: 1.1, ease: "none" }, 0)
-      .to(coin1.current, { left: "12%", ease: "none" }, 0)
-      .to(coin2.current, { left: "30%", ease: "none" }, 0)
-      .to(coin3.current, { left: "48%", ease: "none" }, 0)
-      .to(coin1.current, { opacity: 0, scale: 2, ease: "back.out(2)" }, 0.18)
-      .to(coin2.current, { opacity: 0, scale: 2, ease: "back.out(2)" }, 0.36)
-      .to(coin3.current, { opacity: 0, scale: 2, ease: "back.out(2)" }, 0.54)
-      .to(popup1.current, { y: -40, opacity: 1, ease: "power2.out" }, 0.18)
-      .to(popup1.current, { y: -80, opacity: 0, ease: "power2.out" }, 0.26)
-      .to(popup2.current, { y: -40, opacity: 1, ease: "power2.out" }, 0.36)
-      .to(popup2.current, { y: -80, opacity: 0, ease: "power2.out" }, 0.44)
-      .to(popup3.current, { y: -40, opacity: 1, ease: "power2.out" }, 0.54)
-      .to(popup3.current, { y: -80, opacity: 0, ease: "power2.out" }, 0.62)
-      .to(proxy, { collected: 1, ease: "none" }, 0.18)
-      .to(proxy, { collected: 2, ease: "none" }, 0.36)
-      .to(proxy, { collected: 3, ease: "none" }, 0.54)
-      .to({}, {
-        onUpdate: () => {
-          const idx = Math.min(Math.round(proxy.collected), scores.length - 1);
-          if (scoreLabel.current) {
-            scoreLabel.current.textContent = scores[idx];
-          }
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        headingRef.current,
+        { y: 24, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: headingRef.current,
+            start: "top 82%",
+            end: "top 55%",
+            toggleActions: "play none none reverse",
+          },
         },
-      }, 0);
+      );
 
-    return () => tl.kill();
-  }, { scope: section });
+      const items = section.current?.querySelectorAll(".faq-item");
+      if (items) {
+        gsap.fromTo(
+          items,
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: headingRef.current,
+              start: "top 75%",
+              end: "top 40%",
+              toggleActions: "play none none reverse",
+            },
+          },
+        );
+      }
+
+      ScrollTrigger.refresh();
+    },
+    { scope: section },
+  );
 
   return (
-    <section ref={section} className="relative h-[300vh]">
-      <div
-        ref={panel}
-        className="sticky top-0 h-screen w-full bg-gradient-to-b from-[#1a0a2e] via-[#2d1b0e] to-black flex flex-col items-center justify-center overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#AD8B58/8_0%,_transparent_70%)] pointer-events-none" />
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#DEC087]/20 to-transparent" />
+    <section
+      ref={section}
+      className="min-h-screen bg-black py-24 overflow-hidden relative"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_#AD8B58/5_0%,_transparent_60%)] pointer-events-none" />
+      <div className="max-w-3xl mx-auto px-6 relative z-10">
+        <div ref={headingRef} className="text-center mb-14">
+          <p className="font-body text-sm uppercase tracking-[0.2em] text-gray-500 mb-4">
+            Got Questions?
+          </p>
+          <AnimatedTitle
+            title="Freq<b>u</b>ently <br /> Asked"
+            containerClass="!text-black text-center"
+          />
+        </div>
 
-        <div className="relative z-10 w-full max-w-2xl mx-auto px-6 text-center">
-          <h2 ref={heading} className="text-4xl md:text-6xl font-black text-white mb-8 font-display tracking-tight">
-            Gameplay <span className="text-[#DEC087]">Preview</span>
-          </h2>
-
-          <div ref={scoreRef} className="mb-6 inline-flex items-center gap-3 bg-white/[0.03] border border-white/[0.06] rounded-full px-5 py-2 text-sm">
-            <AutoAnimatedIcon icon={BoltIcon} size={14} color="#DEC087" duration={0.6} />
-            <span className="text-gray-400 font-body">Score: <span ref={scoreLabel} className="text-white font-bold">12,450</span></span>
-          </div>
-
-          <div
-            ref={gameScreen}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{ transform: transformStyle }}
-            className="relative w-full aspect-[16/9] bg-black/60 rounded-2xl border border-white/[0.06] overflow-hidden backdrop-blur-sm shadow-2xl transition-transform duration-200 ease-out"
-          >
-            <div className="absolute top-3 left-3 z-10 flex gap-2">
-              <div className="w-2 h-2 rounded-full bg-red-500/60" />
-              <div className="w-2 h-2 rounded-full bg-yellow-500/60" />
-              <div className="w-2 h-2 rounded-full bg-green-500/60" />
-            </div>
-
-            <div className="absolute inset-0 opacity-15">
-              {stars.map((s, i) => (
-                <div
-                  key={i}
-                  className="absolute w-0.5 h-0.5 bg-white rounded-full"
-                  style={{ left: s.left, top: s.top, opacity: s.opacity }}
+        <div className="space-y-3">
+          {faqs.map(({ q, a }, i) => (
+            <div
+              key={i}
+              className="faq-item rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden transition-all duration-300"
+            >
+              <button
+                onClick={() => toggle(i)}
+                className="w-full flex items-center justify-between gap-4 px-5 md:px-6 py-4 md:py-5 text-left"
+              >
+                <span className="text-sm md:text-base text-white font-medium font-display">
+                  {q}
+                </span>
+                <ChevronDownIcon
+                  size={16}
+                  color="#DEC087"
+                  className={`flex-shrink-0 transition-transform duration-300 ${
+                    openIndex === i ? "rotate-180" : ""
+                  }`}
                 />
-              ))}
-            </div>
-
-            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#AD8B58]/30 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#AD8B58]/20 to-transparent blur-sm" />
-
-            <div ref={camelRun} className="absolute bottom-5 left-3 will-change-transform z-[5]">
-              <div className="animate-float drop-shadow-lg">
-                <img src="/icon.png" alt="Camel" className="h-12 md:h-16 w-auto object-contain" />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  openIndex === i ? "max-h-60" : "max-h-0"
+                }`}
+              >
+                <p className="px-5 md:px-6 pb-4 md:pb-5 text-sm text-gray-400 font-body leading-relaxed">
+                  {a}
+                </p>
               </div>
             </div>
-
-            <div ref={coin1} className="absolute bottom-[22%] left-[45%] text-xl md:text-2xl will-change-transform z-[5] drop-shadow-[0_0_8px_rgba(218,165,32,0.5)]">🪙</div>
-            <div ref={popup1} className="absolute bottom-[42%] left-[44%] text-base font-bold text-[#DEC087] will-change-transform z-[6] opacity-0 pointer-events-none drop-shadow-[0_0_6px_rgba(173,139,88,0.5)]">+800</div>
-
-            <div ref={coin2} className="absolute bottom-[26%] left-[62%] text-xl md:text-2xl will-change-transform z-[5] drop-shadow-[0_0_8px_rgba(218,165,32,0.5)]">🪙</div>
-            <div ref={popup2} className="absolute bottom-[46%] left-[61%] text-base font-bold text-[#DEC087] will-change-transform z-[6] opacity-0 pointer-events-none drop-shadow-[0_0_6px_rgba(173,139,88,0.5)]">+850</div>
-
-            <div ref={coin3} className="absolute bottom-[19%] left-[80%] text-xl md:text-2xl will-change-transform z-[5] drop-shadow-[0_0_8px_rgba(218,165,32,0.5)]">🪙</div>
-            <div ref={popup3} className="absolute bottom-[39%] left-[79%] text-base font-bold text-[#DEC087] will-change-transform z-[6] opacity-0 pointer-events-none drop-shadow-[0_0_6px_rgba(173,139,88,0.5)]">+1,700</div>
-
-            <div ref={ground1} className="absolute bottom-2 left-0 w-[200%] h-3 bg-gradient-to-r from-transparent via-[#AD8B58]/20 to-transparent blur-sm will-change-transform" />
-            <div ref={ground2} className="absolute bottom-0 left-0 w-[200%] h-1.5 bg-gradient-to-r from-transparent via-[#DEC087]/15 to-transparent blur-xs will-change-transform" />
-          </div>
-
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3 md:gap-6 text-xs text-gray-400 font-body">
-            {[
-              { icon: ZapIcon, label: "Speed" },
-              { icon: ShieldCheckIcon, label: "Shield" },
-              { icon: StarIcon, label: "Magnet" },
-            ].map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-2 bg-white/[0.03] border border-white/[0.06] rounded-full px-4 py-2">
-                <AutoAnimatedIcon icon={Icon} size={14} color="#DEC087" duration={0.6} />
-                <span>{label}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-6 border-hsla relative flex w-fit mx-auto cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black/50 px-5 py-2 text-xs uppercase text-white/40 font-display tracking-wider">
-            <ChevronRightIcon size={14} color="#ffffff66" />
-            <p>watch trailer</p>
-          </div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,123 +1,260 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedTitle from "./AnimatedTitle";
-import {
-  StarIcon,
-  BlocksIcon,
-  SwordsIcon,
-  ShieldCheckIcon,
-} from "@animateicons/react/lucide";
-import AutoAnimatedIcon from "./AutoAnimatedIcon";
 
-function BentoTilt({
-  children,
-  className = "",
+gsap.registerPlugin(ScrollTrigger);
+
+const team = [
+  {
+    name: "Salma Mahdar",
+    role: "Game Designer",
+    image: "/profiles/mahdar-salma.png",
+    linkedin: "",
+    portfolio: "",
+    github: "",
+  },
+  {
+    name: "Ayoub Katani",
+    role: "Game Designer",
+    image: "/profiles/ayoub-katani.png",
+    linkedin: "",
+    portfolio: "",
+    github: "",
+  },
+  {
+    name: "Ayoub Moussaouy",
+    role: "3D Artist",
+    image: "/profiles/ayoub-moussaouy.png",
+    linkedin: "",
+    portfolio: "",
+    github: "",
+  },
+  {
+    name: "Anas Daghma",
+    role: "Game Programmer",
+    image: "/profiles/anas-daghma.png",
+    linkedin: "",
+    portfolio: "",
+    github: "",
+  },
+  {
+    name: "Mohammed Amine EL RHALLOUCH",
+    role: "Game Programmer",
+    image: "/profiles/mohammed-amine-el-rhallouch.png",
+    linkedin: "",
+    portfolio: "",
+    github: "",
+  },
+  {
+    name: "Mohamed EL MACHHOUNE",
+    role: "UI & Full-Stack Developer",
+    image: "/profiles/mohamed-elmachhoune.png",
+    linkedin: "https://www.linkedin.com/in/mohamed-el-machhoune/",
+    portfolio: "https://www.elmachhoune.me/",
+    github: "https://github.com/ELMACHHOUNE",
+  },
+  {
+    name: "Fatima Ezzahra OUFFATA",
+    role: "Music Composer",
+    image: "/profiles/fatima-ezzahra-ouffata.png",
+    linkedin: "",
+    portfolio: "",
+    github: "",
+  },
+  {
+    name: "Nouhaila Maadi",
+    role: "Sound Designer",
+    image: "/profiles/nouhaila-maadi.png",
+    linkedin: "",
+    portfolio: "",
+    github: "",
+  },
+];
+
+function TeamCard({
+  name,
+  role,
+  image,
+  linkedin,
+  portfolio,
+  github,
 }: {
-  children: React.ReactNode;
-  className?: string;
+  name: string;
+  role: string;
+  image: string;
+  linkedin: string;
+  portfolio: string;
+  github: string;
 }) {
-  const [transformStyle, setTransformStyle] = useState("");
-  const itemRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!itemRef.current) return;
-    const { left, top, width, height } =
-      itemRef.current.getBoundingClientRect();
-    const relativeX = (e.clientX - left) / width;
-    const relativeY = (e.clientY - top) / height;
-    const tiltX = (relativeY - 0.5) * 6;
-    const tiltY = (relativeX - 0.5) * -6;
-    setTransformStyle(
-      `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(.95, .95, .95)`,
-    );
-  };
-
-  const handleMouseLeave = () => setTransformStyle("");
-
   return (
-    <div
-      ref={itemRef}
-      className={className}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ transform: transformStyle }}
-    >
-      {children}
+    <div className="group w-[200px] md:w-[240px] flex-shrink-0 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 md:p-5 text-center hover:bg-white/[0.04] transition-all duration-300">
+      <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden mx-auto mb-3 border border-[#DEC087]/20 ring-1 ring-[#DEC087]/10">
+        <img
+          src={image}
+          alt={name}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <h3 className="text-white text-sm font-bold font-display leading-tight">
+        {name}
+      </h3>
+      <p className="text-gray-500 text-xs mt-0.5 font-body">{role}</p>
+      <div className="mt-3 flex flex-col items-center gap-2">
+        {linkedin && (
+          <a
+            href={linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#DEC087]/10 border border-[#DEC087]/20 text-[#DEC087] text-xs font-medium hover:bg-[#DEC087]/20 transition-colors"
+            aria-label={`${name} LinkedIn`}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="w-3.5 h-3.5"
+              fill="currentColor"
+            >
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+            LinkedIn
+          </a>
+        )}
+        {(portfolio || github) && (
+          <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            {portfolio && (
+              <a
+                href={portfolio}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-7 h-7 rounded-full bg-white/[0.05] border border-white/[0.08] flex items-center justify-center hover:bg-white/[0.1] transition-colors"
+                aria-label={`${name} Portfolio`}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="w-3.5 h-3.5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                  <line x1="8" y1="21" x2="16" y2="21" />
+                  <line x1="12" y1="17" x2="12" y2="21" />
+                </svg>
+              </a>
+            )}
+            {github && (
+              <a
+                href={github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-7 h-7 rounded-full bg-white/[0.05] border border-white/[0.08] flex items-center justify-center hover:bg-white/[0.1] transition-colors"
+                aria-label={`${name} GitHub`}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="w-3.5 h-3.5 text-gray-400"
+                  fill="currentColor"
+                >
+                  <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                </svg>
+              </a>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
-const chars = [
-  {
-    Icon: StarIcon,
-    name: "Knifida",
-    desc: "Your loyal desert companion. Fast, sturdy, and endlessly running.",
-    color: "#DEC087",
-  },
-  {
-    Icon: BlocksIcon,
-    name: "Ancient Ruins",
-    desc: "Collapsed pillars and temple walls blocking your path.",
-    color: "#AD8B58",
-  },
-  {
-    Icon: SwordsIcon,
-    name: "Desert Threats",
-    desc: "Scorpions and sandstorms. Dodge or be swept away.",
-    color: "#e85d04",
-  },
-  {
-    Icon: ShieldCheckIcon,
-    name: "Desert Treasure",
-    desc: "Hidden gems and golden artifacts across the dunes.",
-    color: "#ffd60a",
-  },
-];
-
 export default function Characters() {
+  const section = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        headingRef.current,
+        { y: 24, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: headingRef.current,
+            start: "top 82%",
+            end: "top 55%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+
+      const cards = trackRef.current;
+      if (!cards) return;
+
+      const totalWidth = cards.scrollWidth / 2;
+      const duration = totalWidth * 0.02;
+
+      const tween = gsap.to(cards, {
+        x: -totalWidth,
+        duration,
+        ease: "none",
+        repeat: -1,
+      });
+
+      const carousel = carouselRef.current;
+      if (carousel) {
+        carousel.addEventListener("mouseenter", () => tween.pause());
+        carousel.addEventListener("mouseleave", () => tween.resume());
+      }
+
+      ScrollTrigger.refresh();
+
+      return () => {
+        tween.kill();
+        if (carousel) {
+          carousel.removeEventListener("mouseenter", () => tween.pause());
+          carousel.removeEventListener("mouseleave", () => tween.resume());
+        }
+      };
+    },
+    { scope: section },
+  );
+
   return (
-    <section className="min-h-screen bg-black py-24 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
+    <section ref={section} className="min-h-screen bg-black py-24 overflow-hidden relative">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_#AD8B58/5_0%,_transparent_60%)] pointer-events-none" />
+      <div className="relative z-10">
+        <div ref={headingRef} className="text-center mb-16 px-6">
           <p className="font-body text-sm uppercase tracking-[0.2em] text-gray-500 mb-4">
-            Inhabitants of the Desert
+            Connect with the Team
           </p>
           <AnimatedTitle
-            title="Characters &<br /> Obst<b>a</b>cles"
+            title="Behind <br /> the G<b>a</b>me"
             containerClass="!text-black text-center"
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
-          {chars.map(({ Icon, name, desc, color }, i) => (
-            <BentoTilt
-              key={i}
-              className="border-hsla relative overflow-hidden rounded-2xl transition-transform duration-300 ease-out"
-            >
-              <div className="relative size-full bg-white/[0.02] p-6 md:p-8 flex items-start gap-5">
-                <div
-                  className="w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: `${color}15` }}
-                >
-                  <AutoAnimatedIcon
-                    icon={Icon}
-                    size={28}
-                    color={color}
-                    duration={0.6}
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="text-lg md:text-xl font-bold text-white font-display tracking-tight">
-                      {name}
-                    </h3>
-                  </div>
-                  <p className="text-gray-400 text-sm leading-relaxed font-body">
-                    {desc}
-                  </p>
-                </div>
-              </div>
-            </BentoTilt>
-          ))}
+        <div
+          ref={carouselRef}
+          className="relative"
+        >
+          <div className="absolute inset-y-0 left-0 w-20 md:w-32 z-10 bg-gradient-to-r from-black to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-20 md:w-32 z-10 bg-gradient-to-l from-black to-transparent pointer-events-none" />
+
+          <div
+            ref={trackRef}
+            className="flex gap-4 md:gap-5 w-max px-4"
+          >
+            {[...team, ...team].map((member, i) => (
+              <TeamCard key={`${member.name}-${i}`} {...member} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
